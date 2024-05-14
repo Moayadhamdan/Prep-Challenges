@@ -1,0 +1,67 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "## Hacker Rank\n\nFor Thursdays you will be solving some selected challenges on HackerRank, please create an account if you don't have then\nFollow the links below:\nread them carefully and solve them then copy-paste your solution below in Code Block"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **Required**:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#####  [Append And Delete](https://www.hackerrank.com/challenges/append-and-delete/problem?isFullScreen=true)\n\nSolution:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "'use strict';\n\nconst fs = require('fs');\n\nprocess.stdin.resume();\nprocess.stdin.setEncoding('utf-8');\n\nlet inputString = '';\nlet currentLine = 0;\n\nprocess.stdin.on('data', function(inputStdin) {\n    inputString += inputStdin;\n});\n\nprocess.stdin.on('end', function() {\n    inputString = inputString.split('\\n');\n\n    main();\n});\n\nfunction readLine() {\n    return inputString[currentLine++];\n}\n\n/*\n * Complete the 'appendAndDelete' function below.\n *\n * The function is expected to return a STRING.\n * The function accepts following parameters:\n *  1. STRING s\n *  2. STRING t\n *  3. INTEGER k\n */\n\nfunction appendAndDelete(s, t, k) {\n    // Write your code here\n    let commonLength = 0;\n    while (commonLength < Math.min(s.length, t.length) && s[commonLength] === t[commonLength]) {\n        commonLength++;\n    }\n\n    const totalLength = s.length + t.length;\n    const operationsRequired = totalLength - 2 * commonLength;\n\n    if (k === operationsRequired || k >= totalLength || (k >= operationsRequired && (k - operationsRequired) % 2 === 0)) {\n        return \"Yes\";\n    } else {\n        return \"No\";\n    }\n\n\n}\n\nfunction main() {\n    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);\n\n    const s = readLine();\n\n    const t = readLine();\n\n    const k = parseInt(readLine().trim(), 10);\n\n    const result = appendAndDelete(s, t, k);\n\n    ws.write(result + '\\n');\n\n    ws.end();\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **Optional**:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#####  [Encryption](https://www.hackerrank.com/challenges/encryption/problem?isFullScreen=true)\n\nSolution:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "'use strict';\n\nconst fs = require('fs');\n\nprocess.stdin.resume();\nprocess.stdin.setEncoding('utf-8');\n\nlet inputString = '';\nlet currentLine = 0;\n\nprocess.stdin.on('data', function(inputStdin) {\n    inputString += inputStdin;\n});\n\nprocess.stdin.on('end', function() {\n    inputString = inputString.split('\\n');\n\n    main();\n});\n\nfunction readLine() {\n    return inputString[currentLine++];\n}\n\n/*\n * Complete the 'encryption' function below.\n *\n * The function is expected to return a STRING.\n * The function accepts STRING s as parameter.\n */\n\nfunction encryption(s) {\n    // Write your code here\n    let len = s.length;\n    let upper = Math.ceil(Math.sqrt(len));\n    let lower = Math.floor(Math.sqrt(len));\n    let row = 0;\n    let col = 0;\n    let output = [];\n    let result = \"\";\n\n    if (upper * lower < len) {\n        lower = upper;\n        output = Array(upper).fill('').map(() => Array(upper).fill(''));\n    } else {\n        output = Array(lower).fill('').map(() => Array(upper).fill(''));\n    }\n\n    s = s.replace(/\\s/g, '');\n\n    for (let i = 0; i < s.length; i++) {\n        if (s.charAt(i) === \" \") {\n            s[i] = \"\";\n        }\n\n        if (row === lower) {\n            break;\n        }\n        \n        if (s.charAt(i) == \"\") {\n            continue;\n        }\n\n        if (i != 0 && (i % upper) === 0) {\n            row++;\n            col = 0;\n        }\n\n        output[row][col++] = s[i];\n    }\n\n    output = transpose(output);\n    \n    for (let i = 0; i < output.length; i++) {\n        result += output[i].join('');\n        result += \" \";\n    }\n\n    return result.trim();\n}\n\nfunction transpose(matrix) {\n    return matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]));\n\n    \n\n}\n\nfunction main() {\n    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);\n\n    const s = readLine();\n\n    const result = encryption(s);\n\n    ws.write(result + '\\n');\n\n    ws.end();\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#####  [The Time In Words](https://www.hackerrank.com/challenges/the-time-in-words/problem?isFullScreen=true)\n\nSolution:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "'use strict';\n\nconst fs = require('fs');\n\nprocess.stdin.resume();\nprocess.stdin.setEncoding('utf-8');\n\nlet inputString = '';\nlet currentLine = 0;\n\nprocess.stdin.on('data', function(inputStdin) {\n    inputString += inputStdin;\n});\n\nprocess.stdin.on('end', function() {\n    inputString = inputString.split('\\n');\n\n    main();\n});\n\nfunction readLine() {\n    return inputString[currentLine++];\n}\n\n/*\n * Complete the 'timeInWords' function below.\n *\n * The function is expected to return a STRING.\n * The function accepts following parameters:\n *  1. INTEGER h\n *  2. INTEGER m\n */\n\nfunction timeInWords(h, m) {\n    // Write your code here\n    const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'quarter', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twenty one', 'twenty two', 'twenty three', 'twenty four', 'twenty five', 'twenty six', 'twenty seven', 'twenty eight', 'twenty nine', 'half'];\n    let hour = words[h];\n    let minute;\n    if (m === 0) {\n        return `${hour} o' clock`;\n    } else if (m === 1) {\n        return `one minute past ${hour}`;\n    } else if (m === 15 || m === 30) {\n        return `${words[m]} past ${hour}`;\n    } else if (m < 30) {\n        minute = words[m];\n        return `${minute} minutes past ${hour}`;\n    } else if (m === 45) {\n        hour = words[h + 1];\n        return `${words[15]} to ${hour}`;\n    } else {\n        hour = words[h + 1];\n        minute = words[60 - m];\n        return `${minute} minutes to ${hour}`;\n    }\n\n\n}\n\nfunction main() {\n    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);\n\n    const h = parseInt(readLine().trim(), 10);\n\n    const m = parseInt(readLine().trim(), 10);\n\n    const result = timeInWords(h, m);\n\n    ws.write(result + '\\n');\n\n    ws.end();\n}\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
